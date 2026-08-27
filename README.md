@@ -11,11 +11,8 @@ Implement password + OTP/TOTP authentication with recovery controls in an author
 - Recovery-code generation
 - Recovery-code hashing before database storage
 - One-time recovery-code use
-- Session-based authentication state
-- SQLite persistence
-- Automated unit tests
 - Basic input validation
-- Clear demonstration workflow
+- demonstration workflow
 
 ## Architecture
 
@@ -39,10 +36,9 @@ Flask Application
 ```
 
 ## Setup on Kali Linux
-
 ```bash
-unzip MFA_Capstone_Professional.zip
-cd MFA_Capstone_Professional
+cd mfa
+unzip mfa.zip
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
@@ -51,7 +47,6 @@ python3 app.py
 
 Open `http://127.0.0.1:5000`.
 
-For an isolated authorized LAN lab, change the host in `app.py` to `0.0.0.0` and access it only from the lab network.
 
 ## Demonstration
 1. Create a synthetic account.
@@ -72,11 +67,5 @@ For an isolated authorized LAN lab, change the host in `app.py` to `0.0.0.0` and
 - Recovery codes are marked used after successful recovery.
 - Used recovery codes cannot be reused.
 - Session cookies are HttpOnly and SameSite=Lax.
-- Debug mode is disabled.
-- Basic username/password/code validation is included.
+- username/password/code validation is included.
 
-## Production limitations
-This is an educational MVP. A production implementation should add HTTPS, CSRF protection, rate limiting, login throttling/lockout, audit logging, secure secret management, secure cookie deployment, monitoring, and stronger account-recovery policy.
-
-## Authorized use
-Run only against systems you own or are explicitly authorized to test. Use synthetic accounts and data in an isolated lab.
