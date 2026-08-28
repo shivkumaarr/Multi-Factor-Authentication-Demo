@@ -1,9 +1,9 @@
-# Multi-Factor Authentication Demo — Capstone Project
+ Multi-Factor Authentication Demo — Capstone Project
 
-## Project Objective
-Implement password + OTP/TOTP authentication with recovery controls in an authorized, isolated lab using synthetic data.
+Project Objective
+Implement password + OTP/TOTP authentication with recovery controls
 
-## What this version demonstrates
+ What this version demonstrates
 - User registration
 - Password authentication with Werkzeug password hashing
 - TOTP-based second authentication factor
@@ -14,7 +14,7 @@ Implement password + OTP/TOTP authentication with recovery controls in an author
 - Basic input validation
 - demonstration workflow
 
-## Architecture
+ Architecture
 
 ```text
 Browser
@@ -34,8 +34,7 @@ Flask Application
            +--> Users
            +--> Recovery Codes
 ```
-
-## Setup on Kali Linux
+ Setup on Kali Linux
 ```bash
 cd mfa
 unzip mfa.zip
@@ -48,7 +47,7 @@ python3 app.py
 Open `http://127.0.0.1:5000`.
 
 
-## Demonstration
+ Demonstration
 1. Create a synthetic account.
 2. Scan the QR code with an authenticator app.
 3. Save the recovery codes.
@@ -60,7 +59,7 @@ Open `http://127.0.0.1:5000`.
 9. Log out and try the same recovery code again.
 10. Show that the reused recovery code is rejected.
 
-## Security Features
+ Security Features
 - Passwords are stored as password hashes.
 - TOTP secrets are used for time-based second-factor verification.
 - Recovery codes are not stored in plaintext.
