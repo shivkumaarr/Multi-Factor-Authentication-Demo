@@ -1,40 +1,69 @@
- Multi-Factor Authentication Demo — Capstone Project
+# Multi-Factor Authentication (MFA) Demo — Capstone Project
 
-Project Objective
-Implement password + OTP/TOTP authentication with recovery controls
+**Cybersecurity Capstone Project | Cyart Tech Internship**
+**Author:** Shiv Kumar
 
- What this version demonstrates
-- User registration
-- Password authentication with Werkzeug password hashing
-- TOTP-based second authentication factor
-- QR-code enrollment
-- Recovery-code generation
-- Recovery-code hashing before database storage
-- One-time recovery-code use
-- Basic input validation
-- demonstration workflow
+## Project Objective
 
- Architecture
+Implement **password + TOTP-based authentication** with secure recovery controls to demonstrate a basic Multi-Factor Authentication workflow.
+
+## What This Project Demonstrates
+
+* User registration
+* Password authentication with Werkzeug password hashing
+* TOTP-based second-factor authentication
+* QR-code based TOTP enrollment
+* TOTP verification
+* Recovery-code generation
+* Recovery-code hashing before database storage
+* One-time recovery-code usage
+* Recovery-code reuse prevention
+* Basic input validation
+* End-to-end authentication workflow
+
+## Architecture
 
 ```text
-Browser
-   |
-   v
-Flask Application
-   |
-   +--> Password Verification
-   |
-   +--> MFA Module (mfa.py)
-   |       +--> TOTP secret
-   |       +--> QR provisioning URI
-   |       +--> TOTP verification
-   |       +--> Recovery-code generation/hashing
-   |
-   +--> Database Module (database.py)
-           +--> Users
-           +--> Recovery Codes
+┌─────────────────────┐
+│       Browser       │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│  Flask Application  │
+└──────────┬──────────┘
+           │
+           ▼
+┌────────────────────────────┐
+│   Password Verification    │
+└────────────┬───────────────┘
+             │
+             ▼
+┌────────────────────────────┐
+│        MFA / TOTP          │
+│  • TOTP Secret             │
+│  • QR Provisioning         │
+│  • TOTP Verification       │
+└────────────┬───────────────┘
+             │
+             ▼
+┌────────────────────────────┐
+│      Recovery Module       │
+│  • Code Generation         │
+│  • Code Hashing            │
+│  • Reuse Prevention        │
+└────────────┬───────────────┘
+             │
+             ▼
+┌─────────────────────┐
+│       Database      │
+│  • Users            │
+│  • Recovery Codes   │
+└─────────────────────┘
 ```
- Setup on Kali Linux
+
+## Setup on Kali Linux
+
 ```bash
 cd mfa
 unzip mfa.zip
@@ -44,27 +73,38 @@ pip install -r requirements.txt
 python3 app.py
 ```
 
-Open `http://127.0.0.1:5000`.
+Open:
 
+```text
+http://127.0.0.1:5000
+```
 
- Demonstration
-1. Create a synthetic account.
-2. Scan the QR code with an authenticator app.
-3. Save the recovery codes.
-4. Log in with username + password.
-5. Enter the TOTP code.
-6. Confirm the authenticated dashboard.
+## Demonstration Workflow
+
+1. Create a test account.
+2. Enroll TOTP using the generated QR code.
+3. Save the generated recovery codes.
+4. Log in using username and password.
+5. Verify the TOTP code.
+6. Access the authenticated dashboard.
 7. Log out.
-8. Log in again and use one recovery code.
-9. Log out and try the same recovery code again.
-10. Show that the reused recovery code is rejected.
+8. Log in using a recovery code.
+9. Attempt to reuse the same recovery code.
+10. Verify that the reused code is rejected.
 
- Security Features
-- Passwords are stored as password hashes.
-- TOTP secrets are used for time-based second-factor verification.
-- Recovery codes are not stored in plaintext.
-- Recovery codes are marked used after successful recovery.
-- Used recovery codes cannot be reused.
-- Session cookies are HttpOnly and SameSite=Lax.
-- username/password/code validation is included.
+## Security Features
 
+* Passwords are stored as secure password hashes.
+* TOTP provides a time-based second authentication factor.
+* TOTP enrollment uses QR-code provisioning.
+* Recovery codes are hashed before database storage.
+* Recovery codes are invalidated after successful use.
+* Previously used recovery codes cannot be reused.
+* Session cookies use `HttpOnly` and `SameSite=Lax`.
+* Username, password, and recovery-code input validation is implemented.
+
+## Environment
+
+Developed and tested in an **isolated and authorized environment** for cybersecurity education and demonstration.
+
+**Technology:** Python | Flask | SQLite | TOTP | Werkzeug | HTML/CSS | Linux
